@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أرشيف بلاتو</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="30" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #dc3545;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.1);
+        }
+
+        .search-box:focus {
+            border-color: #c82333;
+            box-shadow: 0 5px 25px rgba(220, 53, 69, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #dc3545;
+            font-size: 1.2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #dc3545, #c82333);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(220, 53, 69, 0.2);
+            border-color: #dc3545;
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #dc3545;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .category-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .category-content.active {
+            display: block;
+        }
+
+        .category-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-right: 4px solid #dc3545;
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover {
+            background: #e9ecef;
+            transform: translateX(-5px);
+        }
+
+        .category-item h4 {
+            color: #dc3545;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .category-item p, .category-item li {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .category-item ul {
+            margin-right: 20px;
+        }
+
+        .link-item {
+            display: block;
+            color: #dc3545;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+        }
+
+        .link-item:hover {
+            background: #dc3545;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #dc3545 0%, #dc3545 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 70%;
+            color: white;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid #e9ecef;
+            color: #666;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }
+
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+
+        .no-results {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin: 40px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header fade-in">
+            <h1>🏛️ أرشيف بلاتو</h1>
+            <p>مكتبة المعلومات الأكاديمية والإرشادات الجامعية</p>
+        </div>
+
+        <div class="search-container fade-in">
+            <input type="text" class="search-box" placeholder="ابحث في الأرشيف..." id="searchInput">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="no-results" id="noResults">
+            <p>لم يتم العثور على نتائج مطابقة لبحثك</p>
+        </div>
+
+        <div class="categories-grid" id="categoriesGrid">
+            <div class="category-card fade-in" data-category="1">
+                <div class="category-title">
+                    <span class="category-icon">1</span>
+                    بيانات مهمة في الوقت الحالي
+                </div>
+                <div class="category-content">
+                    <div class="category-item">
+                        <p><strong>📝 ملاحظة:</strong> يتم التحديث بشكل مستمر</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card fade-in" data-category="2">
+                <div class="category-title">
+                    <span class="category-icon">2</span>
+                    الفرق بين الالتماس والتظلم
+                </div>
+                <div class="category-content">
+                    <div class="category-item">
+                        <h4>📋 الالتماس</h4>
+                        <p>عندما يكون مكتوب في المادة غياب وأنت حضرت امتحان المادة أو نجحت في مادة وبعدها طلع أنك غايب فيها</p>
+                        <ul>
+                            <li>الالتماس ليس له أي رسوم</li>
+                            <li>تتوجه للشؤون عندما يفتح الالتماس وتقدم</li>
+                        </ul>
+                    </div>
+                    <div class="category-item">
+                        <h4>📋 التظلم</h4>
+                        <p>عندما تكون حضرت المادة وحصلت على تقدير ضعيف أو ضعيف جداً وأنت شاكك في التقدير وتريد التأكد من الدرجات والتقدير</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card fade-in" data-category="3">
+                <div class="category-title">
+                    <span class="category-icon">3</span>
+                    الفرق بين بحث الحالة وبيان القيد وبيان الحالة
+                </div>
+                <div class="category-content">
+                    <div class="category-item">
+                        <h4>📄 بحث الحالة</h4>
+                        <p>لتخفيض المصاريف، ويتم فيه مراجعة الأوراق المطلوبة (يكون في الرعاية)</p>
+                    </div>
+                    <div class="category-item">
+                        <h4>📄 بيان القيد</h4>
+                        <p>لجواز السفر، التقديم للشركات، عمل رخصة قيادة</p>
+                    </div>
+                    <div class="category-item">
+                        <h4>📄 بيان الحالة</h4>
+                        <p>يثبت موقفك من الكلية إذا كنت مفصول أو ناجح أو لك فرصة عادية عندما تأتي للتحويل لكلية أخرى</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card fade-in" data-category="4">
+                <div class="category-title">
+                    <span class="category-icon">4</span>
+                    معلومات عن التربية العسكرية
+                </div>
+                <div class="category-content">
+                    <div class="category-item">
+                        <h4>🎖️ التربية العسكرية</h4>
+                        <p>دورة تدريبية لمدة أسبوعين حيث يتم تحديد المكان الذي سيتم أداء الدورة فيه</p>
+                        <p>في نهاية الدورة يكون هناك امتحان فيما تم دراسته خلال الدورة والتدريب عليه في الجانب العملي</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card fade-in" data-category="5">
+                <div class="category-title">
+                    <span class="category-icon">5</span>
+                    أماكن الأقسام بالكلية
+                </div>
+                <div class="category-content">
+                    <div class="category-item">
+                        <h4>🏢 المبنى البحري</h4>
+                        <p><strong>الدور الأول:</strong> قسم أنثروبولوجيا، قسم علم نفس</p>
+                        <p><strong>الدور الثاني:</strong> قسم مسرح، قسم لغات شرقية، قسم اللغة العربية</p>
+                        <p><strong>الدور الثالث:</strong> مكتب العميد، مكتب الوكيل، مكاتب السكرتارية</p>
+                        <p><strong>الدور الرابع:</strong> قسم اللغة الإنجليزية، قسم اللغة الفرنسية</p>
+                    </div>
+                    <div class="category-item">
+                        <h4>🏢 المبنى القبلي</h4>
+                        <p><strong>الدور الأول:</strong> قسم تاريخ</p>
+                        <p><strong>الدور الثاني:</strong> قسم جغرافيا، قسم جيوماتكس</p>
+                        <p><strong>الدور الثالث:</strong> قسم فلسفة، قاعة مسرح</p>
+                        <p><strong>الدور الرابع:</strong> قسم تاريخ، قسم آثار، قسم صوتيات</p>
+                        <p><strong>الدور الخامس:</strong> قسم إعلام، قسم اجتماع</p>
+                    </div>
+                    <div class="category-item">
+                        <h4>🏢 المبنى الأبيض</h4>
+                        <p><strong>الدور الأول:</strong> قسم مكتبات</p>
+                        <p><strong>الدور الثاني:</strong> الحسابات الخاصة</p>
+                        <p><strong>الدور الثالث:</strong> البرامج الخاصة</p>
+                    </div>
+                    <div class="category-item">
+                        <h4>🏢 الساحة</h4>
+                        <p>قسم صيني، قسم لغات شرقية</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card fade-in" data-category="6">
+                <div class="category-title">
+                    <span class="category-icon">6</span>
+                    ما يخص الخدمة العامة
+                </div>
+                <div class="category-content">
+                    <div class="category-item">
+                        <h4>👩‍💼 الخدمة العامة</h4>
+                        <p>للبنات سنة بعد التخرج للتمكن من العمل في أي وظيفة حكومية أو السفر</p>
+                    </div>
+                    <div class="category-item">
+                        <h4>📋 المتطلبات للتقديم</h4>
+                        <ul>
+                            <li>صورتين من المؤهل (شهادة التخرج - الإفادة)</li>
+                            <li>٣ صور شخصية</li>
+                            <li>صورتين بطاقة</li>
+                            <li>التقديم من خلال الرابط وطباعة آخر ورقة ظاهرة صورتين</li>
+                            <li>شراء فايلين من أي مكتبة</li>
+                        </ul>
+                    </div>
+                    <div class="category-item">
+                        <h4>🗓️ مواعيد التقديم</h4>
+                        <p>التقديم يكون في آخر كل شهر من ٢٥ إلى ٢٩، التوجه للشؤون التابعة للمنطقة السكنية في البطاقة</p>
+                        <p>بعد التوجه للشؤون يتم إعطاء أبليكشن لتسجيل البيانات كلها مرة أخرى والأماكن المرغوب في العمل بها</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card fade-in" data-category="7">
+                <div class="category-title">
+                    <span class="category-icon">7</span>
+                    روابط مهمة
+                </div>
+                <div class="category-content">
+                    <div class="category-item">
+                        <h4>🔗 الروابط الحكومية والجامعية</h4>
+                        <a href="https://www.facebook.com/MOHESREGYPT" target="_blank" class="link-item">صفحة وزارة التعليم العالي والبحث المصرية</a>
+                        <a href="https://www.facebook.com/AlexandriauniOfficial" target="_blank" class="link-item">الصفحة الرسمية لجامعة الإسكندرية</a>
+                        <a href="https://www.facebook.com/MAC.Alex.University" target="_blank" class="link-item">مركز القياس والتقويم جامعة الإسكندرية</a>
+                        <a href="https://www.facebook.com/LTU.FOA" target="_blank" class="link-item">وحدة اللغات والترجمة جامعة الإسكندرية</a>
+                        <a href="https://www.facebook.com/AlexUni.official/" target="_blank" class="link-item">الصفحة الرسمية لاتحاد طلاب جامعة الإسكندرية</a>
+                    </div>
+                    <div class="category-item">
+                        <h4>🔗 روابط كلية الآداب</h4>
+                        <a href="https://www.facebook.com/arts.alexu.edu.eg" target="_blank" class="link-item">الصفحة الرسمية لكلية الآداب</a>
+                        <a href="https://www.facebook.com/Alex.Arts.Student.Union/" target="_blank" class="link-item">الصفحة الرسمية لاتحاد طلاب كلية الآداب</a>
+                        <a href="https://www.facebook.com/artsstudentaffairs" target="_blank" class="link-item">صفحة شؤون طلاب كلية الآداب</a>
+                        <a href="https://www.facebook.com/profile.php?id=61559121957642" target="_blank" class="link-item">صفحة رعاية الشباب</a>
+                    </div>
+                    <div class="category-item">
+                        <h4>🔗 روابط الخدمات الطلابية</h4>
+                        <a href="https://www.facebook.com/TahaHussein.Center2019" target="_blank" class="link-item">مركز طه حسين لخدمة الطلاب من ذوي الإعاقة</a>
+                        <a href="https://www.facebook.com/profile.php?id=100064569766448" target="_blank" class="link-item">صفحة التربية العسكرية جامعة الإسكندرية</a>
+                        <a href="https://freshgraduate.moss.gov.eg/App_Pages/View/login.aspx" target="_blank" class="link-item">رابط التقديم للخدمة العامة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 أرشيف بلاتو - جميع الحقوق محفوظة</p>
+            <p>مكتبة رقمية شاملة للمعلومات الأكاديمية والإرشادات الجامعية</p>
+        </div>
+    </div>
+
+    <script>
+        // إضافة التفاعل للبطاقات
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const content = this.querySelector('.category-content');
+                const isActive = content.classList.contains('active');
+                
+                // إغلاق جميع البطاقات الأخرى
+                document.querySelectorAll('.category-content').forEach(c => {
+                    c.classList.remove('active');
+                });
+                
+                // فتح البطاقة المحددة إذا لم تكن مفتوحة
+                if (!isActive) {
+                    content.classList.add('active');
+                }
+            });
+        });
+
+        // وظيفة البحث
+        const searchInput = document.getElementById('searchInput');
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            const categoryCards = document.querySelectorAll('.category-card');
+            let hasResults = false;
+
+            if (searchTerm === '') {
+                // إظهار جميع البطاقات
+                categoryCards.forEach(card => {
+                    card.style.display = 'block';
+                    // إزالة التمييز
+                    card.innerHTML = card.innerHTML.replace(/<span class="highlight">(.*?)<\/span>/g, '$1');
+                });
+                hasResults = true;
+            } else {
+                categoryCards.forEach(card => {
+                    const cardText = card.textContent.toLowerCase();
+                    
+                    if (cardText.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        hasResults = true;
+                        
+                        // تمييز النص المطابق
+                        const regex = new RegExp(`(${searchTerm})`, 'gi');
+                        card.innerHTML = card.innerHTML.replace(/<span class="highlight">(.*?)<\/span>/g, '$1');
+                        card.innerHTML = card.innerHTML.replace(regex, '<span class="highlight">$1</span>');
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            // إظهار أو إخفاء رسالة عدم وجود نتائج
+            if (hasResults) {
+                noResults.style.display = 'none';
+                categoriesGrid.style.display = 'grid';
+            } else {
+                noResults.style.display = 'block';
+                categoriesGrid.style.display = 'none';
+            }
+        });
+
+        // إضافة تأثير التمرير السلس
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.category-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
