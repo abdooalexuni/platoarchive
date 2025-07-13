@@ -5,532 +5,670 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أرشيف بلاتو</title>
     <style>
-        * {
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #f5f5f5;
+            --dark-color: #333;
+            --light-color: #fff;
+        }
+        
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            background-image: url('philosophy-bg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-blend-mode: overlay;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-
-        .header {
+        
+        header {
+            background-color: var(--light-color);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .logo {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-            color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 20px;
         }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="30" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
+        
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin: 0;
         }
-
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-
-        .search-container {
-            margin-bottom: 30px;
+        
+        .search-bar {
+            width: 80%;
+            margin: 0 auto 30px;
             position: relative;
         }
-
-        .search-box {
+        
+        .search-bar input {
             width: 100%;
-            padding: 15px 50px 15px 20px;
-            border: 2px solid #dc3545;
-            border-radius: 50px;
+            padding: 15px 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
             font-size: 1.1rem;
             outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            background: white;
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.1);
         }
-
-        .search-box:focus {
-            border-color: #c82333;
-            box-shadow: 0 5px 25px rgba(220, 53, 69, 0.2);
-            transform: translateY(-2px);
+        
+        .search-bar input:focus {
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
         }
-
-        .search-icon {
+        
+        .search-bar button {
             position: absolute;
-            right: 20px;
+            left: 10px;
             top: 50%;
             transform: translateY(-50%);
-            color: #dc3545;
-            font-size: 1.2rem;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .category-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
         }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #dc3545, #c82333);
-            transform: scaleX(0);
+        
+        .search-bar button:hover {
+            background-color: #c0392b;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .content-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        
+        .info-card {
+            width: 48%;
+            background-color: var(--light-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        
+        .card-header .toggle-icon {
             transition: transform 0.3s ease;
         }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(220, 53, 69, 0.2);
-            border-color: #dc3545;
+        
+        .card-header.collapsed .toggle-icon {
+            transform: rotate(-90deg);
         }
-
-        .category-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .category-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #dc3545;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .category-icon {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #dc3545, #c82333);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .category-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .category-content.active {
-            display: block;
-        }
-
-        .category-item {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-right: 4px solid #dc3545;
+        
+        .card-body {
+            padding: 20px;
             transition: all 0.3s ease;
+            max-height: 1000px;
+            overflow: hidden;
         }
-
-        .category-item:hover {
-            background: #e9ecef;
-            transform: translateX(-5px);
+        
+        .card-body.collapsed {
+            max-height: 0;
+            padding: 0 20px;
+            overflow: hidden;
         }
-
-        .category-item h4 {
-            color: #dc3545;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+        
+        .card-body ul {
+            padding-right: 20px;
         }
-
-        .category-item p, .category-item li {
-            color: #666;
-            margin-bottom: 5px;
+        
+        .card-body li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            position: relative;
+            padding-right: 15px;
         }
-
-        .category-item ul {
-            margin-right: 20px;
+        
+        .card-body li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            position: absolute;
+            right: 0;
+            top: -3px;
         }
-
-        .link-item {
-            display: block;
-            color: #dc3545;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            margin-bottom: 5px;
-        }
-
-        .link-item:hover {
-            background: #dc3545;
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, #dc3545 0%, #dc3545 100%);
-            background-repeat: no-repeat;
-            background-size: 100% 40%;
-            background-position: 0 70%;
-            color: white;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-
-        .footer {
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
             text-align: center;
-            padding: 30px 0;
+            padding: 20px 0;
             margin-top: 50px;
-            border-top: 1px solid #e9ecef;
-            color: #666;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease;
+        
+        .quick-link {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
         }
-
-        @media (max-width: 768px) {
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 15px;
-            }
+        
+        .quick-link:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
         }
-
-        .no-results {
-            text-align: center;
-            color: #666;
-            font-size: 1.1rem;
-            margin: 40px 0;
+        
+        .quick-link .emoji {
+            margin-left: 8px;
+        }
+        
+        .notifications-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            animation: pulse 2s infinite;
+            border: none;
+        }
+        
+        .notifications-btn .emoji {
+            margin-left: 8px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .notification-panel {
+            position: fixed;
+            bottom: 80px;
+            left: 30px;
+            background-color: white;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            z-index: 99;
             display: none;
+        }
+        
+        .notification-panel h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .notification-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .reset-btn {
+            display: block;
+            margin: 20px auto;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .info-card {
+                width: 100%;
+            }
+            
+            .search-bar {
+                width: 95%;
+            }
+            
+            .notifications-btn {
+                padding: 12px 15px;
+                bottom: 20px;
+                left: 20px;
+                font-size: 0.9rem;
+            }
+            
+            .notification-panel {
+                width: 250px;
+                left: 20px;
+            }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>أرشيف بلاتو</h1>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن المعلومات التي تريدها...">
+                <button>بحث</button>
+            </div>
+        </div>
+    </header>
+    
     <div class="container">
-        <div class="header fade-in">
-            <h1>🏛️ أرشيف بلاتو</h1>
-        </div>
-
-        <div class="search-container fade-in">
-            <input type="text" class="search-box" placeholder="ابحث في الأرشيف..." id="searchInput">
-            <span class="search-icon">🔍</span>
-        </div>
-
-        <div class="no-results" id="noResults">
-            <p>لم يتم العثور على نتائج مطابقة لبحثك</p>
-        </div>
-
-        <div class="categories-grid" id="categoriesGrid">
-            <div class="category-card fade-in" data-category="1">
-                <div class="category-title">
-                    <span class="category-icon">1</span>
-                    بيانات مهمة في الوقت الحالي
-                </div>
-                <div class="category-content">
-                    <div class="category-item">
-                        <p><strong>📝 ملاحظة:</strong> يتم التحديث بشكل مستمر</p>
-                    </div>
-                </div>
+        <div class="quick-links">
+            <div class="quick-link" data-filter="الترم الصيفي">
+                <span>الترم الصيفي</span>
+                <span class="emoji">🏖️</span>
             </div>
-
-            <div class="category-card fade-in" data-category="2">
-                <div class="category-title">
-                    <span class="category-icon">2</span>
-                    الفرق بين الالتماس والتظلم
-                </div>
-                <div class="category-content">
-                    <div class="category-item">
-                        <h4>📋 الالتماس</h4>
-                        <p>عندما يكون مكتوب في المادة غياب وأنت حضرت امتحان المادة أو نجحت في مادة وبعدها طلع أنك غايب فيها</p>
-                        <ul>
-                            <li>الالتماس ليس له أي رسوم</li>
-                            <li>تتوجه للشؤون عندما يفتح الالتماس وتقدم</li>
-                        </ul>
-                    </div>
-                    <div class="category-item">
-                        <h4>📋 التظلم</h4>
-                        <p>عندما تكون حضرت المادة وحصلت على تقدير ضعيف أو ضعيف جداً وأنت شاكك في التقدير وتريد التأكد من الدرجات والتقدير</p>
-                    </div>
-                </div>
+            <div class="quick-link" data-filter="التربية العسكرية">
+                <span>التربية العسكرية</span>
+                <span class="emoji">🪖</span>
             </div>
-
-            <div class="category-card fade-in" data-category="3">
-                <div class="category-title">
-                    <span class="category-icon">3</span>
-                    الفرق بين بحث الحالة وبيان القيد وبيان الحالة
-                </div>
-                <div class="category-content">
-                    <div class="category-item">
-                        <h4>📄 بحث الحالة</h4>
-                        <p>لتخفيض المصاريف، ويتم فيه مراجعة الأوراق المطلوبة (يكون في الرعاية)</p>
-                    </div>
-                    <div class="category-item">
-                        <h4>📄 بيان القيد</h4>
-                        <p>لجواز السفر، التقديم للشركات، عمل رخصة قيادة</p>
-                    </div>
-                    <div class="category-item">
-                        <h4>📄 بيان الحالة</h4>
-                        <p>يثبت موقفك من الكلية إذا كنت مفصول أو ناجح أو لك فرصة عادية عندما تأتي للتحويل لكلية أخرى</p>
-                    </div>
-                </div>
+            <div class="quick-link" data-filter="الالتماس">
+                <span>الالتماس والتظلم</span>
+                <span class="emoji">📝</span>
             </div>
-
-            <div class="category-card fade-in" data-category="4">
-                <div class="category-title">
-                    <span class="category-icon">4</span>
-                    معلومات عن التربية العسكرية
-                </div>
-                <div class="category-content">
-                    <div class="category-item">
-                        <h4>🎖️ التربية العسكرية</h4>
-                        <p>دورة تدريبية لمدة أسبوعين حيث يتم تحديد المكان الذي سيتم أداء الدورة فيه</p>
-                        <p>في نهاية الدورة يكون هناك امتحان فيما تم دراسته خلال الدورة والتدريب عليه في الجانب العملي</p>
-                    </div>
-                </div>
+            <div class="quick-link" data-filter="الخدمة العامة">
+                <span>الخدمة العامة</span>
+                <span class="emoji">👩‍💼</span>
             </div>
-
-            <div class="category-card fade-in" data-category="5">
-                <div class="category-title">
-                    <span class="category-icon">5</span>
-                    أماكن الأقسام بالكلية
-                </div>
-                <div class="category-content">
-                    <div class="category-item">
-                        <h4>🏢 المبنى البحري</h4>
-                        <p><strong>الدور الأول:</strong> قسم أنثروبولوجيا، قسم علم نفس</p>
-                        <p><strong>الدور الثاني:</strong> قسم مسرح، قسم لغات شرقية، قسم اللغة العربية</p>
-                        <p><strong>الدور الثالث:</strong> مكتب العميد، مكتب الوكيل، مكاتب السكرتارية</p>
-                        <p><strong>الدور الرابع:</strong> قسم اللغة الإنجليزية، قسم اللغة الفرنسية</p>
-                    </div>
-                    <div class="category-item">
-                        <h4>🏢 المبنى القبلي</h4>
-                        <p><strong>الدور الأول:</strong> قسم تاريخ</p>
-                        <p><strong>الدور الثاني:</strong> قسم جغرافيا، قسم جيوماتكس</p>
-                        <p><strong>الدور الثالث:</strong> قسم فلسفة، قاعة مسرح</p>
-                        <p><strong>الدور الرابع:</strong> قسم تاريخ، قسم آثار، قسم صوتيات</p>
-                        <p><strong>الدور الخامس:</strong> قسم إعلام، قسم اجتماع</p>
-                    </div>
-                    <div class="category-item">
-                        <h4>🏢 المبنى الأبيض</h4>
-                        <p><strong>الدور الأول:</strong> قسم مكتبات</p>
-                        <p><strong>الدور الثاني:</strong> الحسابات الخاصة</p>
-                        <p><strong>الدور الثالث:</strong> البرامج الخاصة</p>
-                    </div>
-                    <div class="category-item">
-                        <h4>🏢 الساحة</h4>
-                        <p>قسم صيني، قسم لغات شرقية</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-card fade-in" data-category="6">
-                <div class="category-title">
-                    <span class="category-icon">6</span>
-                    ما يخص الخدمة العامة
-                </div>
-                <div class="category-content">
-                    <div class="category-item">
-                        <h4>👩‍💼 الخدمة العامة</h4>
-                        <p>للبنات سنة بعد التخرج للتمكن من العمل في أي وظيفة حكومية أو السفر</p>
-                    </div>
-                    <div class="category-item">
-                        <h4>📋 المتطلبات للتقديم</h4>
-                        <ul>
-                            <li>صورتين من المؤهل (شهادة التخرج - الإفادة)</li>
-                            <li>٣ صور شخصية</li>
-                            <li>صورتين بطاقة</li>
-                            <li>التقديم من خلال الرابط وطباعة آخر ورقة ظاهرة صورتين</li>
-                            <li>شراء فايلين من أي مكتبة</li>
-                        </ul>
-                    </div>
-                    <div class="category-item">
-                        <h4>🗓️ مواعيد التقديم</h4>
-                        <p>التقديم يكون في آخر كل شهر من ٢٥ إلى ٢٩، التوجه للشؤون التابعة للمنطقة السكنية في البطاقة</p>
-                        <p>بعد التوجه للشؤون يتم إعطاء أبليكشن لتسجيل البيانات كلها مرة أخرى والأماكن المرغوب في العمل بها</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-card fade-in" data-category="7">
-                <div class="category-title">
-                    <span class="category-icon">7</span>
-                    روابط مهمة
-                </div>
-                <div class="category-content">
-                    <div class="category-item">
-                        <h4>🔗 الروابط الحكومية والجامعية</h4>
-                        <a href="https://www.facebook.com/MOHESREGYPT" target="_blank" class="link-item">صفحة وزارة التعليم العالي والبحث المصرية</a>
-                        <a href="https://www.facebook.com/AlexandriauniOfficial" target="_blank" class="link-item">الصفحة الرسمية لجامعة الإسكندرية</a>
-                        <a href="https://www.facebook.com/MAC.Alex.University" target="_blank" class="link-item">مركز القياس والتقويم جامعة الإسكندرية</a>
-                        <a href="https://www.facebook.com/LTU.FOA" target="_blank" class="link-item">وحدة اللغات والترجمة جامعة الإسكندرية</a>
-                        <a href="https://www.facebook.com/AlexUni.official/" target="_blank" class="link-item">الصفحة الرسمية لاتحاد طلاب جامعة الإسكندرية</a>
-                    </div>
-                    <div class="category-item">
-                        <h4>🔗 روابط كلية الآداب</h4>
-                        <a href="https://www.facebook.com/arts.alexu.edu.eg" target="_blank" class="link-item">الصفحة الرسمية لكلية الآداب</a>
-                        <a href="https://www.facebook.com/Alex.Arts.Student.Union/" target="_blank" class="link-item">الصفحة الرسمية لاتحاد طلاب كلية الآداب</a>
-                        <a href="https://www.facebook.com/artsstudentaffairs" target="_blank" class="link-item">صفحة شؤون طلاب كلية الآداب</a>
-                        <a href="https://www.facebook.com/profile.php?id=61559121957642" target="_blank" class="link-item">صفحة رعاية الشباب</a>
-                    </div>
-                    <div class="category-item">
-                        <h4>🔗 روابط الخدمات الطلابية</h4>
-                        <a href="https://www.facebook.com/TahaHussein.Center2019" target="_blank" class="link-item">مركز طه حسين لخدمة الطلاب من ذوي الإعاقة</a>
-                        <a href="https://www.facebook.com/profile.php?id=100064569766448" target="_blank" class="link-item">صفحة التربية العسكرية جامعة الإسكندرية</a>
-                        <a href="https://freshgraduate.moss.gov.eg/App_Pages/View/login.aspx" target="_blank" class="link-item">رابط التقديم للخدمة العامة</a>
-                    </div>
-                </div>
+            <div class="quick-link" data-filter="الأقسام">
+                <span>أماكن الأقسام</span>
+                <span class="emoji">🏫</span>
             </div>
         </div>
-
-        <div class="footer">
-            <p>©2025 أرشيف بلاتو - جميع الحقوق محفوظة لأسرة بلاتو</p>
-            <p>المقرر/ يوسف صبري - نائب المقرر/ منار رضا</p>
+        
+        <div class="content-section">
+            <!-- البطاقة 1: بيانات مهمة في الوقت الحالي -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>بيانات مهمة في الوقت الحالي</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>مفيش حاجه في الوقت الحال بخصوص الافادات لكل الفرق أو سحب ملف أو تحويل من انتساب ل انتظام أو امتحانات الُشعب في القسم فلسة أول ما نتبلغ هنبلغ.</li>
+                        <li>في مشكلة بخصوص نتيجة فرقة تالتة لائحة قديمة لسه مظهرتش فأول ما تظهر هنبلغكم ولكن المسئولين على تالته محدش يرد على البوستات دى.</li>
+                        <li>التربية العسكرية الأسامي بقت بتنزل على تيمز، ويرجح يكون في كل جروب واحد في تيمز عشان لو حد سال على اسمه نساعده.</li>
+                    </ul>
+                    <p><em>ملاحظة: يتم التحديث وإضافة البيانات المهمة بشكل مستمر.</em></p>
+                </div>
+            </div>
+            
+            <!-- البطاقة 2: معلومات مهمة عن الترم الصيفي -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>معلومات مهمة عن الترم الصيفي</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <h3>شروط التسجيل:</h3>
+                    <ul>
+                        <li>أن يكون الطالب مسدد لجميع مصروفاته.</li>
+                    </ul>
+                    
+                    <h3>موعد التسجيل:</h3>
+                    <ul>
+                        <li>من يوم 12 / 7 حتى يوم 30 / 7 يوميًا من 10 ص إلى 1 ظهرًا.</li>
+                    </ul>
+                    
+                    <h3>طريقة التسجيل:</h3>
+                    <ul>
+                        <li>التوجه للمرشد الأكاديمي بالقسم وتحديد المواد وتسجيلها في استمارة ورقية.</li>
+                        <li>التوجه بالاستمارة الورقية الطالب لشؤون الطلاب لإضافة المصروفات على السيستم ثم دفع المصروفات في الخزنة بالفيزا.</li>
+                        <li>بعد سداد المصروفات يتوجه الطالب الى وحدة MIS إيصال دفع مصروفات ترم الصيف + صورة استمارة المواد الورقية.</li>
+                        <li>تقوم وحدة MIS بفتح التسجيل الالكتروني للطالب الذي سلم اوراقه للوحدة ويتاح للطالب التسجيل الالكتروني على السيستم بداية من الساعة 6:00 مساء نفس اليوم الذي قام فيه بتسليم أوراقه للوحدة.</li>
+                        <li>بعد تسجيل الطالب للمواد إلكترونيًا على السيستم - يقوم الطالب بطباعه استمارة التسجيل من على الموقع وتسليمها للمرشد الأكاديمي.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- البطاقة 3: الفرق بين الالتماس والتظلم -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>الفرق بين الالتماس والتظلم</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <h3>الالتماس:</h3>
+                    <ul>
+                        <li>لما يكون مكتوب في المادة غياب وانت حاضر امتحان المادة دي أو نجحت في مادة وبعدين طلع إنك كنت غايب فيها.</li>
+                        <li>الالتماس مش بيكون ليه اي رسوم.</li>
+                        <li>انت بتروح الشئون لما الالتماس يفتح وبتقدم.</li>
+                    </ul>
+                    
+                    <h3>التظلم:</h3>
+                    <ul>
+                        <li>لو انت حضرت المادة وجايب فيها ضعيف او ضعيف جدا وانت شاكك في التقدير ده وعايز تتأكد من الدرجات والتقدير بتعمل التظلم.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- البطاقة 4: الفرق بين بحث الحالة وبيان القيد وبيان الحالة -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>الفرق بين بحث الحالة وبيان القيد وبيان الحالة</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><strong>بحث الحالة:</strong> دا لـ تخفيض المصاريف، وبيشوف الورق المطلوب وبيبقى فـ الرعاية (رعاية الشباب).</li>
+                        <li><strong>بيان القيد:</strong> لجواز السفر.. التقديم للشركات... عمل رخصه قياده.</li>
+                        <li><strong>بيان الحالة:</strong> بيثبت موقفك من الكلية إذا كنت مفصول أو ناجح أو ليك فرصه عادي لما بتيجي تحول كلية تانية.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- البطاقة 5: معلومات عن التربية العسكرية -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>معلومات عن التربية العسكرية</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>هي عبارة عن دورة تدريبية بتكون لمده أسبوعين وهناك بيتم تحديد المكان الى هيتم تأدية الدورة فيه وفى نهاية الدورة بيكون فيه امتحان فيما تم دراسته خلال الدورة والتدريب عليه بشكل عملي.</li>
+                        <li>بيتم تسليمك الكارنية في اليوم الاول للدورة.</li>
+                        <li>مكان الدورة: المدينة الجامعية بنين بعزبة سعد سموحة.</li>
+                        <li>ميعاد الدورة: الساعة الثامنة صباحاً.</li>
+                    </ul>
+                    
+                    <h3>بعض التعليمات الهامة:</h3>
+                    <ul>
+                        <li>الالتزام بزى التربية العسكرية (بنطلون كحلي ـ قميص ازرق ـ حذاء)</li>
+                        <li>الاستجابة للتعليمات والاوامر الصادرة اليه من المعلمين</li>
+                        <li>الالتزام بمواعيد طابور الصباح</li>
+                        <li>عدم اصطحاب الموبايل اثناء الدورة</li>
+                        <li>لمحافظة على الكارنية حتى نهاية الدورة</li>
+                        <li>الالتزام بحلاقة الشعر والذقن</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- البطاقة 6: اماكن الأقسام بالكلية -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>اماكن الأقسام بالكلية</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <h3>المبنى البحري:</h3>
+                    <ul>
+                        <li><strong>الدور الأول:</strong> قسم الأنثروبولوجيا، قسم علم النفس</li>
+                        <li><strong>الدور الثاني:</strong> قسم مسرح، قسم اللغات شرقية، قسم اللغة العربية</li>
+                        <li><strong>الدور الثالث:</strong> مكتب العميد، مكتب الوكيل، مكاتب السكرتارية</li>
+                        <li><strong>الدور الرابع:</strong> قسم اللغة الإنجليزية، قسم اللغة الفرنسية</li>
+                    </ul>
+                    
+                    <h3>المبنى القبلي:</h3>
+                    <ul>
+                        <li><strong>الدور الأول:</strong> قسم تاريخ</li>
+                        <li><strong>الدور الثاني:</strong> قسم جغرافيا، قسم جيوماتكس</li>
+                        <li><strong>الدور الثالث:</strong> قسم فلسفة، قاعة مسرح</li>
+                        <li><strong>الدور الرابع:</strong> قسم تاريخ، قسم اثار، قسم صوتيات</li>
+                        <li><strong>الدور الخامس:</strong> قسم اعلام، قسم اجتماع</li>
+                    </ul>
+                    
+                    <h3>المبنى الأبيض:</h3>
+                    <ul>
+                        <li><strong>الدور الأول:</strong> قسم مكتبات</li>
+                        <li><strong>الدور الثاني:</strong> الحسابات الخاصة</li>
+                        <li><strong>الدور الثالث:</strong> البرامج الخاصة</li>
+                    </ul>
+                    
+                    <h3>الساحة:</h3>
+                    <ul>
+                        <li>قسم صيني</li>
+                        <li>قسم لغات شرقية</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- البطاقة 7: ما يخص الخدمة العامة -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>ما يخص الخدمة العامة</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <p>دي بتكون للبنات سنة بعد التخرج علشان تقدر تشتغل في أي حاجه حكومية أو أنها تسافر</p>
+                    
+                    <h3>للتقديم في الخدمة العامة:</h3>
+                    <ul>
+                        <li>صورتين من المؤهل (شهادة التخرج _ الافادة).</li>
+                        <li>٣ صور شخصية.</li>
+                        <li>صورتين بطاقة.</li>
+                        <li>التقديم من خلال اللينك ده (<a href="https://freshgraduate.moss.gov.eg/App_Pages/View/login.aspx" target="_blank">رابط التقديم</a>) وطباعة اخر ورقة ظاهرة صورتين.</li>
+                        <li>شراء فايلين من أي مكتبة</li>
+                    </ul>
+                    
+                    <h3>موعد التقديم:</h3>
+                    <ul>
+                        <li>التقديم بيكون في اخر كل شهر من ٢٥ ل ٢٩ التوجه للشئون التابعة للمنطقة السكنية الـ في البطاقة.</li>
+                        <li>لمعرفة الشئون التابعة لكل شخص بعد ما بيقدم في اللينك الـ فوق بتظهرله مكانها فين.</li>
+                        <li>بعد التوجه للشئون هناك بيدوهم أبليكشن بيسجلوا فيها بيناتهم كلها تاني والأماكن ال حابيين ينزلوا فيها.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- البطاقة 8: روابط مهمة -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>روابط مهمة</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><a href="https://www.facebook.com/MOHESREGYPT" target="_blank">صفحة وزارة التعليم العالي والبحث المصرية</a></li>
+                        <li><a href="https://www.facebook.com/AlexandriauniOfficial" target="_blank">الصفحة الرسمية لجامعة الإسكندرية</a></li>
+                        <li><a href="https://www.facebook.com/MAC.Alex.University" target="_blank">مركز القياس والتقويم جامعة الإسكندرية</a></li>
+                        <li><a href="https://www.facebook.com/LTU.FOA" target="_blank">وحدة اللغات والترجمة جامعة الإسكندرية</a></li>
+                        <li><a href="https://www.facebook.com/AlexUni.official" target="_blank">الصفحة الرسمية لاتحاد طلاب جامعة الإسكندرية</a></li>
+                        <li><a href="https://www.facebook.com/arts.alexu.edu.eg" target="_blank">الصفحة الرسمية لكلية الآداب</a></li>
+                        <li><a href="https://www.facebook.com/Alex.Arts.Student.Union" target="_blank">الصفحة الرسمية لاتحاد طلاب كلية الآداب</a></li>
+                        <li><a href="https://www.facebook.com/artsstudentaffairs" target="_blank">صفحة شؤون طلاب كلية الآداب</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61559121957642" target="_blank">صفحة رعاية الشباب</a></li>
+                        <li><a href="https://www.facebook.com/TahaHussein.Center2019" target="_blank">مركز طه حسين لخدمة الطلاب من ذوي الإعاقة جامعة الإسكندرية</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100064569766448" target="_blank">صفحة التربية العسكرية جامعة الإسكندرية</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- البطاقة 9: الفرق بين السمر كورس والترم الصيفي -->
+            <div class="info-card">
+                <div class="card-header">
+                    <span>الفرق بين السمر كورس والترم الصيفي</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-body">
+                    <h3>السمر كورس:</h3>
+                    <ul>
+                        <li>بيكون لطلاب الفرقة الرابعة (اللائحة القديمة فقط) للطلاب المحملين بمادة أو مادتين، أكتر من كده بيكون باقي للإعادة.</li>
+                        <li><strong>طب ده بتسجيل؟</strong></li>
+                        <li>لا، لان كل المواد اللي فيها رسوب لطلاب اللائحة القديمة بتتفتح وبينزل ليها جدول وغالبا بيكون شهر 9 الطالب بيروح في ميعاد المادة اللى هو راسب فيها.</li>
+                    </ul>
+                    
+                    <h3>الترم الصيفي:</h3>
+                    <ul>
+                        <li>ده خاص بطلاب اللائحة الجديدة نظام الساعات المعتمدة فقط</li>
+                        <li>وبيكون ترم مكثف حد أدنى 2 ساعتين للتسجيل وحد أقصي 9 ساعات للتسجيل.</li>
+                        <li>الساعة فيه ب 150 ج.</li>
+                        <li>ويجوز للطلاب أنهم يحسنوا فيه مواد لحد تقدير C.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <button class="reset-btn" id="resetFilters">إعادة تعيين جميع البطاقات</button>
+    </div>
+    
+    <button class="notifications-btn" id="notificationsBtn">
+        <span>إشعارات وتنبيهات</span>
+        <span class="emoji">🔔</span>
+    </button>
+    <div class="notification-panel" id="notificationPanel">
+        <h3>إشعارات وتنبيهات جديدة</h3>
+        <div class="notification-item">
+            <strong>تحديث:</strong> نتيجة فرقة تالتة لائحة قديمة ظهرت الآن!
+        </div>
+        <div class="notification-item">
+            <strong>تنبيه:</strong> آخر موعد لتسجيل الترم الصيفي 30/7
         </div>
     </div>
-
+    
+    <footer>
+        <div class="container">
+            <p>جميع الحقوق محفوظة لأسرة Plato © 2025</p>
+            <p>المقرر/ يوسف صبري | نائب المقرر/ منار رضا</p>
+        </div>
+    </footer>
+    
     <script>
-        // إضافة التفاعل للبطاقات
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const content = this.querySelector('.category-content');
-                const isActive = content.classList.contains('active');
+        // كود جافاسكريبت للبحث والتفاعلية
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('.search-bar input');
+            const searchButton = document.querySelector('.search-bar button');
+            const infoCards = document.querySelectorAll('.info-card');
+            const quickLinks = document.querySelectorAll('.quick-link');
+            const notificationsBtn = document.getElementById('notificationsBtn');
+            const notificationPanel = document.getElementById('notificationPanel');
+            const resetBtn = document.getElementById('resetFilters');
+            
+            // وظيفة البحث
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
                 
-                // إغلاق جميع البطاقات الأخرى
-                document.querySelectorAll('.category-content').forEach(c => {
-                    c.classList.remove('active');
-                });
-                
-                // فتح البطاقة المحددة إذا لم تكن مفتوحة
-                if (!isActive) {
-                    content.classList.add('active');
-                }
-            });
-        });
-
-        // وظيفة البحث
-        const searchInput = document.getElementById('searchInput');
-        const categoriesGrid = document.getElementById('categoriesGrid');
-        const noResults = document.getElementById('noResults');
-
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            const categoryCards = document.querySelectorAll('.category-card');
-            let hasResults = false;
-
-            if (searchTerm === '') {
-                // إظهار جميع البطاقات
-                categoryCards.forEach(card => {
-                    card.style.display = 'block';
-                    // إزالة التمييز
-                    card.innerHTML = card.innerHTML.replace(/<span class="highlight">(.*?)<\/span>/g, '$1');
-                });
-                hasResults = true;
-            } else {
-                categoryCards.forEach(card => {
-                    const cardText = card.textContent.toLowerCase();
-                    
-                    if (cardText.includes(searchTerm)) {
+                infoCards.forEach(card => {
+                    const cardContent = card.textContent.toLowerCase();
+                    if (cardContent.includes(searchTerm)) {
                         card.style.display = 'block';
-                        hasResults = true;
-                        
-                        // تمييز النص المطابق
-                        const regex = new RegExp(`(${searchTerm})`, 'gi');
-                        card.innerHTML = card.innerHTML.replace(/<span class="highlight">(.*?)<\/span>/g, '$1');
-                        card.innerHTML = card.innerHTML.replace(regex, '<span class="highlight">$1</span>');
                     } else {
                         card.style.display = 'none';
                     }
                 });
             }
-
-            // إظهار أو إخفاء رسالة عدم وجود نتائج
-            if (hasResults) {
-                noResults.style.display = 'none';
-                categoriesGrid.style.display = 'grid';
-            } else {
-                noResults.style.display = 'block';
-                categoriesGrid.style.display = 'none';
-            }
-        });
-
-        // إضافة تأثير التمرير السلس
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.category-card');
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
+            // تصفية حسب الروابط السريعة
+            quickLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    infoCards.forEach(card => {
+                        const cardContent = card.textContent;
+                        if (cardContent.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
                 });
-            }, {
-                threshold: 0.1
             });
-
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'all 0.6s ease';
-                observer.observe(card);
+            
+            // عرض/إخفاء لوحة الإشعارات
+            notificationsBtn.addEventListener('click', function() {
+                if (notificationPanel.style.display === 'block') {
+                    notificationPanel.style.display = 'none';
+                } else {
+                    notificationPanel.style.display = 'block';
+                }
             });
+            
+            // إخفاء لوحة الإشعارات عند النقر خارجها
+            document.addEventListener('click', function(e) {
+                if (!notificationsBtn.contains(e.target) && !notificationPanel.contains(e.target)) {
+                    notificationPanel.style.display = 'none';
+                }
+            });
+            
+            // طي وفرد البطاقات
+            infoCards.forEach(card => {
+                const header = card.querySelector('.card-header');
+                const body = card.querySelector('.card-body');
+                
+                header.addEventListener('click', function() {
+                    header.classList.toggle('collapsed');
+                    body.classList.toggle('collapsed');
+                });
+            });
+            
+            // إعادة تعيين جميع الفلاتر والبطاقات
+            resetBtn.addEventListener('click', function() {
+                // إعادة تعيين البحث
+                searchInput.value = '';
+                
+                // إظهار جميع البطاقات
+                infoCards.forEach(card => {
+                    card.style.display = 'block';
+                    
+                    // التأكد من أن جميع البطاقات مفتوحة
+                    const header = card.querySelector('.card-header');
+                    const body = card.querySelector('.card-body');
+                    
+                    header.classList.remove('collapsed');
+                    body.classList.remove('collapsed');
+                });
+            });
+            
+            // أحداث الاستماع
+            searchInput.addEventListener('keyup', performSearch);
+            searchButton.addEventListener('click', performSearch);
         });
     </script>
 </body>
