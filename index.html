@@ -3,762 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أرشيف بلاتو - الأرشيف الشامل للمعلومات</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>أرشيف بلاتو</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary-color: #e63946;
-            --secondary-color: #f1faee;
-            --accent-color: #a8dadc;
-            --dark-color: #1d3557;
-            --light-color: #ffffff;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background-color: var(--secondary-color);
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Noto Sans Arabic', sans-serif;
         }
-        
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.5rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .header-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .logo i {
-            margin-left: 10px;
-            font-size: 2.2rem;
-        }
-        
-        .search-box {
-            width: 100%;
-            max-width: 600px;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        
-        .search-box input {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 30px;
-            border: none;
-            font-size: 1rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .search-box input:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px var(--light-color);
-            background-color: white;
-        }
-        
-        .search-box button {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--primary-color);
+        .section-toggle {
             cursor: pointer;
-            font-size: 1.1rem;
-        }
-        
-        .quick-links {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            justify-content: center;
-        }
-        
-        .quick-link {
-            background-color: var(--light-color);
-            color: var(--primary-color);
-            border-radius: 20px;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .quick-link:hover {
-            background-color: var(--dark-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        main {
-            padding: 2rem 0;
-        }
-        
-        .info-section {
-            background-color: white;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .section-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .section-header h2 {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        
-        .section-header i {
-            transition: transform 0.3s ease;
-        }
-        
-        .section-content {
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-        }
-        
-        .section-content.active {
-            padding: 20px;
-            max-height: 2000px;
-        }
-        
-        .section-content ul {
-            list-style-type: none;
-        }
-        
-        .section-content li {
-            margin-bottom: 10px;
-            padding-right: 15px;
-            position: relative;
-        }
-        
-        .section-content li:before {
-            content: "•";
-            color: var(--primary-color);
-            font-weight: bold;
-            position: absolute;
-            right: 0;
-        }
-        
-        .sub-section {
-            margin-top: 15px;
-            padding-right: 15px;
-        }
-        
-        .sub-section h3 {
-            color: var(--dark-color);
-            font-size: 1rem;
-            margin-bottom: 10px;
-            border-right: 3px solid var(--primary-color);
-            padding-right: 10px;
-        }
-        
-        .link-item {
-            color: var(--dark-color);
-            text-decoration: none;
             transition: color 0.3s ease;
-            display: inline-block;
-            margin-top: 5px;
         }
-        
-        .link-item:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
+        .section-toggle:hover {
+            color: #ff4d4d;
         }
-        
-        .link-item i {
-            margin-left: 5px;
+        .section-content {
+            display: none;
+            transition: all 0.3s ease-in-out;
         }
-        
-        footer {
-            background-color: var(--dark-color);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
+        .section-content.active {
+            display: block;
         }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
-        .credits {
-            display: flex;
-            gap: 30px;
-            margin: 1.5rem 0;
-        }
-        
-        .credit-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px 25px;
-            min-width: 200px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-        
-        .credit-card:hover {
+        .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .credit-card h3 {
-            color: var(--accent-color);
-            margin-bottom: 5px;
-            font-size: 1.1rem;
+        .search-container {
+            position: relative;
         }
-        
-        .credit-card p {
-            font-size: 0.9rem;
+        .search-results {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 20;
         }
-        
-        .copyright {
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            opacity: 0.8;
+        .search-results.active {
+            display: block;
         }
-        
-        @media (max-width: 768px) {
-            .credits {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .credit-card {
-                min-width: auto;
-                width: 100%;
-            }
-            
-            .quick-links {
-                justify-content: flex-start;
-            }
+        .search-results div {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
         }
-        
-        /* Animation classes */
-        .bounce {
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {transform: scale(1);}
-            50% {transform: scale(1.05);}
-            100% {transform: scale(1);}
-        }
-        
-        .highlight {
-            background-color: #fffacd;
-            padding: 0 2px;
-            border-radius: 3px;
+        .search-results div:hover {
+            background: #fee2e2;
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span>أرشيف بلاتو</span>
-                    <i class="fas fa-archive bounce" style="animation-delay: 0.3s;"></i>
-                </div>
-                
-                <div class="search-box">
-                    <input type="text" placeholder="ابحث عن أي معلومة...">
-                    <button type="submit"><i class="fas fa-search"></i></button>
-                </div>
-                
-                <div class="quick-links">
-                    <div class="quick-link pulse" data-section="section1">📌 بيانات مهمة</div>
-                    <div class="quick-link pulse" data-section="section2">📚 الترم الصيفي</div>
-                    <div class="quick-link pulse" data-section="section3">⚖️ الالتماس والتظلم</div>
-                    <div class="quick-link pulse" data-section="section4">📄 الأوراق المطلوبة</div>
-                    <div class="quick-link pulse" data-section="section5">🎖️ التربية العسكرية</div>
-                    <div class="quick-link pulse" data-section="section6">🏛️ أماكن الأقسام</div>
-                    <div class="quick-link pulse" data-section="section7">👩‍💼 الخدمة العامة</div>
-                    <div class="quick-link pulse" data-section="section8">☀️ السمر كورس</div>
-                    <div class="quick-link pulse" data-section="section9">🔗 روابط مهمة</div>
-                </div>
-            </div>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-red-900 text-white text-center py-6 animate__animated animate__fadeIn">
+        <h1 class="text-3xl font-bold">أرشيف بلاتو</h1>
+        <div class="search-container max-w-md mx-auto mt-4">
+            <input type="text" id="searchInput" placeholder="ابحث عن معلومة..." class="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+            <div id="searchResults" class="search-results"></div>
         </div>
     </header>
-    
-    <main>
-        <div class="container">
-            <!-- Section 1 -->
-            <div class="info-section" id="section1">
-                <div class="section-header">
-                    <h2><i class="fas fa-exclamation-circle" style="margin-left: 10px;"></i> بيانات مهمة في الوقت الحالي</h2>
-                    <i class="fas fa-chevron-down"></i>
+
+    <nav class="bg-red-700 text-white sticky top-0 z-10 shadow-md">
+        <ul class="flex flex-wrap justify-center gap-4 py-4">
+            <li><a href="#important-data" class="hover:text-yellow-300 transition-colors duration-300">📌 بيانات مهمة</a></li>
+            <li><a href="#summer-term" class="hover:text-yellow-300 transition-colors duration-300">📚 الترم الصيفي</a></li>
+            <li><a href="#appeal-grievance" class="hover:text-yellow-300 transition-colors duration-300">⚖️ الالتماس والتظلم</a></li>
+            <li><a href="#required-papers" class="hover:text-yellow-300 transition-colors duration-300">📄 بيان الحالة وبيان القيد</a></li>
+            <li><a href="#military-education" class="hover:text-yellow-300 transition-colors duration-300">🎖️ التربية العسكرية</a></li>
+            <li><a href="#department-locations" class="hover:text-yellow-300 transition-colors duration-300">🏛️ أماكن الأقسام</a></li>
+            <li><a href="#public-service" class="hover:text-yellow-300 transition-colors duration-300">👩‍💼 الخدمة العامة</a></li>
+            <li><a href="#summer-course" class="hover:text-yellow-300 transition-colors duration-300">☀️ السمر كورس</a></li>
+            <li><a href="#important-links" class="hover:text-yellow-300 transition-colors duration-300">🔗 روابط مهمة</a></li>
+        </ul>
+    </nav>
+
+    <main class="container mx-auto p-6 space-y-8">
+        <section id="important-data" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">بيانات مهمة في الوقت الحالي</h2>
+            <div class="section-content active">
+                <p>مفيش حاجه في الوقت الحال بخصوص الافادات لكل الفرق أو سحب ملف أو تحويل من انتساب لانتظام أو امتحانات الشعب في القسم فلسة أول ما نتبلغ هنبلغ.</p>
+                <p>في مشكلة بخصوص نتيجة فرقة تالتة لائحة قديمة لسه مظهرتش فأول ما تظهر هنبلغكم ولكن المسئولين على تالته محدش يرد على البوستات دي.</p>
+                <p>التربية العسكرية الأسامي بقت بتنزل على تيمز، ويرجح يكون في كل جروب واحد في تيمز عشان لو حد سأل على اسمه نساعده 🫶🏻.</p>
+                <p class="font-semibold">ملاحظة: يتم التحديث وإضافة البيانات المهمة بشكل مستمر.</p>
+            </div>
+        </section>
+
+        <section id="summer-term" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">معلومات مهمة عن الترم الصيفي</h2>
+            <div class="section-content active">
+                <h3 class="text-xl font-semibold">شروط التسجيل</h3>
+                <p>أن يكون الطالب مسدد لجميع مصروفاته.</p>
+
+                <h3 class="text-xl font-semibold mt-4">موعد التسجيل</h3>
+                <p>من يوم 12 / 7 حتى يوم 30 / 7 يوميًا من 10 ص إلى 1 ظهرًا.</p>
+
+                <h3 class="text-xl font-semibold mt-4">طريقة التسجيل</h3>
+                <ol class="list-decimal mr-6">
+                    <li>التوجه للمرشد الأكاديمي بالقسم وتحديد المواد وتسجيلها في استمارة ورقية.</li>
+                    <li>التوجه بالاستمارة الورقية الطالب لشؤون الطلاب لإضافة المصروفات على السيستم ثم دفع المصروفات في الخزنة بالفيزا.</li>
+                    <li>بعد سداد المصروفات يتوجه الطالب إلى وحدة MIS إيصال دفع مصروفات ترم الصيف + صورة استمارة المواد الورقية.</li>
+                    <li>تقوم وحدة MIS بفتح التسجيل الإلكتروني للطالب الذي سلم أوراقه للوحدة ويتاح للطالب التسجيل الإلكتروني على السيستم بداية من الساعة 6:00 مساء نفس اليوم الذي قام فيه بتسليم أوراقه للوحدة.</li>
+                    <li>بعد تسجيل الطالب للمواد إلكترونيًا على السيستم - يقوم الطالب بطباعة استمارة التسجيل من على الموقع وتسليمها للمرشد الأكاديمي.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="appeal-grievance" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">الفرق بين الالتماس والتظلم</h2>
+            <div class="section-content active">
+                <h3 class="text-xl font-semibold">الالتماس</h3>
+                <p>لما يكون مكتوب في المادة غياب وأنت حاضر امتحان المادة دي أو نجحت في مادة وبعدين طلع إنك كنت غايب فيها.</p>
+                <p>الالتماس مش بيكون ليه أي رسوم.</p>
+                <p>أنت بتروح الشؤون لما الالتماس يفتح وبتقدم.</p>
+
+                <h3 class="text-xl font-semibold mt-4">التظلم</h3>
+                <p>لو أنت حضرت المادة وجايب فيها ضعيف أو ضعيف جدًا وأنت شاكك في التقدير ده وعايز تتأكد من الدرجات والتقدير بتعمل التظلم.</p>
+            </div>
+        </section>
+
+        <section id="required-papers" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">الفرق بين بحث الحالة وبيان القيد وبيان الحالة</h2>
+            <div class="section-content active">
+                <p><strong>بحث الحالة:</strong> دا لـ تخفيض الم部分的</p>
+                <p><strong>بيان القيد:</strong> لجواز السفر.. التقديم للشركات... عمل رخصة قيادة.</p>
+                <p><strong>بيان الحالة:</strong> بيثبت موقفك من الكلية إذا كنت مفصول أو ناجح أو ليك فرصة عادي لاما بتيجي تحول كلية تانية.</p>
+            </div>
+        </section>
+
+        <section id="military-education" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">معلومات عن التربية العسكرية</h2>
+            <div class="section-content active">
+                <p>هي عبارة عن دورة تدريبية بتكون لمدة أسبوعين وهناك بيتم تحديد المكان اللي هيتم تأدية الدورة فيه وفي نهاية الدورة بيكون فيه امتحان فيما تم دراسته خلال الدورة والتدريب عليه بشكل عملي.</p>
+                <p>بيتم تسليمك الكارنيه في اليوم الأول للدورة.</p>
+                <p><strong>مكان الدورة:</strong> المدينة الجامعية بنين بعزبة سعد سموحة.</p>
+                <p><strong>ميعاد الدورة:</strong> الساعة الثامنة صباحًا.</p>
+
+                <h3 class="text-xl font-semibold mt-4">بعض التعليمات الهامة</h3>
+                <ul class="list-disc mr-6">
+                    <li>الالتزام بزي التربية العسكرية (بنطلون كحلي - قميص أزرق - حذاء).</li>
+                    <li>الاستجابة للتعليمات والأوامر الصادرة إليه من المعلمين.</li>
+                    <li>الالتزام بمواعيد طابور الصباح.</li>
+                    <li>عدم اصطحاب الموبايل أثناء الدورة.</li>
+                    <li>المحافظة على الكارنيه حتى نهاية الدورة.</li>
+                    <li>الالتزام بحلاقة الشعر والذقن.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="department-locations" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">أماكن الأقسام بالكلية</h2>
+            <div class="section-content active">
+                <h3 class="text-xl font-semibold">المبنى البحري</h3>
+                <ul class="list-disc mr-6">
+                    <li><strong>الدور الأول:</strong> قسم الأنثروبولوجيا، قسم علم النفس</li>
+                    <li><strong>الدور الثاني:</strong> قسم مسرح، قسم اللغات الشرقية، قسم اللغة العربية</li>
+                    <li><strong>الدور الثالث:</strong> مكتب العميد، مكتب الوكيل، مكاتب السكرتارية</li>
+                    <li><strong>الدور الرابع:</strong> قسم اللغة الإنجليزية، قسم اللغة الفرنسية</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-4">المبنى القبلي</h3>
+                <ul class="list-disc mr-6">
+                    <li><strong>الدور الأول:</strong> قسم تاريخ</li>
+                    <li><strong>الدور الثاني:</strong> قسم جغرافيا، قسم جيوماتكس</li>
+                    <li><strong>الدور الثالث:</strong> قسم فلسفة، قاعة مسرح</li>
+                    <li><strong>الدور الرابع:</strong> قسم تاريخ، قسم آثار، قسم صوتيات</li>
+                    <li><strong>الدور الخامس:</strong> قسم إعلام، قسم اجتماع</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-4">المبنى الأبيض</h3>
+                <ul class="list-disc mr-6">
+                    <li><strong>الدور الأول:</strong> قسم مكتبات</li>
+                    <li><strong>الدور الثاني:</strong> الحسابات الخاصة</li>
+                    <li><strong>الدور الثالث:</strong> البرامج الخاصة</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-4">الساحة</h3>
+                <ul class="list-disc mr-6">
+                    <li>قسم صيني، قسم لغات شرقية</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="public-service" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">ما يخص الخدمة العامة</h2>
+            <div class="section-content active">
+                <p>دي بتكون للبنات سنة بعد التخرج علشان تقدر تشتغل في أي حاجة حكومية أو إنها تسافر.</p>
+
+                <h3 class="text-xl font-semibold mt-4">للتقديم في الخدمة العامة</h3>
+                <ul class="list-disc mr-6">
+                    <li>صورتين من المؤهل (شهادة التخرج _ الإفادة).</li>
+                    <li>٣ صور شخصية.</li>
+                    <li>صورتين بطاقة.</li>
+                    <li>التقديم من خلال اللينك ده (<a href="https://freshgraduate.moss.gov.eg" class="text-red-600 hover:underline">https://freshgraduate.moss.gov.eg</a>) وطباعة آخر ورقة ظاهرة صورتين.</li>
+                    <li>شراء فايلين من أي مكتبة.</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-4">موعد التقديم</h3>
+                <p>التقديم بيكون في آخر كل شهر من ٢٥ لـ ٢٩ التوجه للشؤون التابعة للمنطقة السكنية اللي في البطاقة.</p>
+                <p>لمعرفة الشؤون التابعة لكل شخص بعد ما بيقدم في اللينك اللي فوق بتظهرله مكانها فين.</p>
+                <p>بعد التوجه للشؤون هناك بيدوهم أبليكشن بيسجلوا فيها بياناتهم كلها تاني والأماكن اللي حابين ينزلوا فيها.</p>
+            </div>
+        </section>
+
+        <section id="summer-course" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">الفرق بين السمر كورس والترم الصيفي</h2>
+            <div class="section-content active">
+                <h3 class="text-xl font-semibold">السمر كورس</h3>
+                <p>بيكون لطلاب الفرقة الرابعة (اللائحة القديمة فقط) للطلاب المحملين بمادة أو مادتين، أكتر من كده بيكون باقي للإعادة.</p>
+                <h4 class="text-lg font-semibold mt-2">طب ده بتسجيل؟</h4>
+                <p>لا، لأن كل المواد اللي فيها رسوب لطلاب اللائحة القديمة بتتفتح وبينزل ليها جدول وغالبا بيكون شهر ٩ الطالب بيروح في ميعاد المادة اللي هو راسب فيها.</p>
+
+                <h3 class="text-xl font-semibold mt-4">الترم الصيفي</h3>
+                <p>ده خاص بطلاب اللائحة الجديدة نظام الساعات المعتمدة فقط.</p>
+                <p>وبيكون ترم مكثف حد أدنى ٢ ساعتين للتسجيل وحد أقصى ٩ ساعات للتسجيل.</p>
+                <p>الساعة فيه بـ ١٥٠ ج.</p>
+                <p>ويجوز للطلاب إنهم يحسنوا فيه مواد لحد تقدير C.</p>
+            </div>
+        </section>
+
+        <section id="important-links" class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="section-toggle text-2xl font-semibold text-red-900 mb-4">روابط مهمة</h2>
+            <div class="section-content active">
+                <ul class="list-disc mr-6">
+                    <li><a href="#" class="text-red-600 hover:underline">صفحة وزارة التعليم العالي والبحث المصرية</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">الصفحة الرسمية لجامعة الإسكندرية</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">مركز القياس والتقويم جامعة الإسكندرية</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">وحدة اللغات والترجمة جامعة الإسكندرية</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">الصفحة الرسمية لاتحاد طلاب جامعة الإسكندرية</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">الصفحة الرسمية لكلية الآداب</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">الصفحة الرسمية لاتحاد طلاب كلية الآداب</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">صفحة شؤون طلاب كلية الآداب</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">صفحة رعاية الشباب</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">مركز طه حسين لخدمة الطلاب من ذوي الإعاقة جامعة الإسكندرية</a></li>
+                    <li><a href="#" class="text-red-600 hover:underline">صفحة التربية العسكرية جامعة الإسكندرية</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <h2 class="text-2xl font-semibold text-red-900 mb-4">المسؤولون</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card bg-red-50 p-6 rounded-lg text-center">
+                    <h3 class="text-xl font-semibold text-red-900">المقرر</h3>
+                    <p class="mt-2">يوسف صبري</p>
                 </div>
-                <div class="section-content">
-                    <ul>
-                        <li>مفيش حاجه في الوقت الحال بخصوص الافادات لكل الفرق أو سحب ملف أو تحويل من انتساب ل انتظام أو امتحانات الُشعب في القسم فلسة أول ما نتبلغ هنبلغ.</li>
-                        <li>في مشكلة بخصوص نتيجة فرقة تالتة لائحة قديمة لسه مظهرتش فأول ما تظهر هنبلغكم ولكن المسئولين على تالته محدش يرد على البوستات دى.</li>
-                        <li>التربية العسكرية الأسامي بقت بتنزل على تيمز، ويرجح يكون في كل جروب واحد في تيمز عشان لو حد سال على اسمه نساعده🫶🏻.</li>
-                    </ul>
-                    <div class="sub-section">
-                        <p><em>ملاحظة: يتم التحديث وإضافة البيانات المهمة بشكل مستمر.</em></p>
-                    </div>
+                <div class="card bg-red-50 p-6 rounded-lg text-center">
+                    <h3 class="text-xl font-semibold text-red-900">نائب المقرر</h3>
+                    <p class="mt-2">منار رضا</p>
                 </div>
             </div>
-            
-            <!-- Section 2 -->
-            <div class="info-section" id="section2">
-                <div class="section-header">
-                    <h2><i class="fas fa-sun" style="margin-left: 10px;"></i> معلومات مهمة عن الترم الصيفي</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <div class="sub-section">
-                        <h3>شروط التسجيل</h3>
-                        <ul>
-                            <li>أن يكون الطالب مسدد لجميع مصروفاته.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="sub-section">
-                        <h3>موعد التسجيل</h3>
-                        <ul>
-                            <li>من يوم 12 / 7 حتى يوم 30 / 7 يوميًا من 10 ص إلى 1 ظهرًا.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="sub-section">
-                        <h3>طريقة التسجيل</h3>
-                        <ul>
-                            <li>التوجه للمرشد الأكاديمي بالقسم وتحديد المواد وتسجيلها في استمارة ورقية.</li>
-                            <li>التوجه بالاستمارة الورقية الطالب لشؤون الطلاب لإضافة المصروفات على السيستم ثم دفع المصروفات في الخزنة بالفيزا.</li>
-                            <li>بعد سداد المصروفات يتوجه الطالب الى وحده MIS إيصال دفع مصروفات ترم الصيف + صورة استمارة المواد الورقية.</li>
-                            <li>تقوم وحده MIS بفتح التسجيل الالكتروني للطالب الذي سلم اوراقه للوحدة ويتاح للطالب التسجيل الالكتروني على السيستم بداية من الساعة 6:00 مساء نفس اليوم الذي قام فيه بتسليم أوراقه للوحدة.</li>
-                            <li>بعد تسجيل الطالب للمواد إلكترونيًا على السيستم - يقوم الطالب بطباعه استمارة التسجيل من على الموقع وتسليمها للمرشد الأكاديمي.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Section 3 -->
-            <div class="info-section" id="section3">
-                <div class="section-header">
-                    <h2><i class="fas fa-balance-scale" style="margin-left: 10px;"></i> الفرق بين الالتماس والتظلم</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <div class="sub-section">
-                        <h3>الالتماس</h3>
-                        <ul>
-                            <li>لما يكون مكتوب في المادة غياب وانت حاضر امتحان المادة دي أو نجحت في مادة وبعدين طلع إنك كنت غايب فيها.</li>
-                            <li>الالتماس مش بيكون ليه اي رسوم.</li>
-                            <li>انت بتروح الشئون لما الالتماس يفتح وبتقدم.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="sub-section">
-                        <h3>التظلم</h3>
-                        <ul>
-                            <li>لو انت حضرت المادة وجايب فيها ضعيف او ضعيف جدا وانت شاكك في التقدير ده وعايز تتأكد من الدرجات والتقدير بتعمل التظلم.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Section 4 -->
-            <div class="info-section" id="section4">
-                <div class="section-header">
-                    <h2><i class="fas fa-file-alt" style="margin-left: 10px;"></i> الفرق بين بحث الحالة وبيان القيد وبيان الحالة</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li>بحث الحالة: دا لـ تخفيض المصاريف، وبيشوف الورق المطلوب وبيبقى فـ الرعاية (رعاية الشباب).</li>
-                        <li>بيان القيد: لجواز السفر.. التقديم للشركات... عمل رخصه قياده.</li>
-                        <li>بيان الحالة: بيثبت موقفك من الكلية إذا كنت مفصول أو ناجح أو ليك فرصه عادي لما بتيجي تحول كلية تانية.</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Section 5 -->
-            <div class="info-section" id="section5">
-                <div class="section-header">
-                    <h2><i class="fas fa-medal" style="margin-left: 10px;"></i> معلومات عن التربية العسكرية</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li>هي عبارة عن دورة تدريبية بتكون لمده أسبوعين وهناك بيتم تحديد المكان الى هيتم تأدية الدورة فيه وفى نهاية الدورة بيكون فيه امتحان فيما تم دراسته خلال الدورة والتدريب عليه بشكل عملي.</li>
-                        <li>بيتم تسليمك الكارنية في اليوم الاول للدورة.</li>
-                        <li>مكان الدورة: المدينة الجامعية بنين بعزبة سعد سموحة.</li>
-                        <li>ميعاد الدورة: الساعة الثامنة صباحاً.</li>
-                    </ul>
-                    
-                    <div class="sub-section">
-                        <h3>بعض التعليمات الهامة</h3>
-                        <ul>
-                            <li>الالتزام بزى التربية العسكرية (بنطلون كحلي ـ قميص ازرق ـ حذاء)</li>
-                            <li>الاستجابة للتعليمات والاوامر الصادرة اليه من المعلمين</li>
-                            <li>الالتزام بمواعيد طابور الصباح</li>
-                            <li>عدم اصطحاب الموبايل اثناء الدورة</li>
-                            <li>لمحافظة على الكارنية حتى نهاية الدورة</li>
-                            <li>الالتزام بحلاقة الشعر والذقن</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Section 6 -->
-            <div class="info-section" id="section6">
-                <div class="section-header">
-                    <h2><i class="fas fa-map-marked-alt" style="margin-left: 10px;"></i> اماكن الأقسام بالكلية</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <div class="sub-section">
-                        <h3>المبنى البحري</h3>
-                        <ul>
-                            <li>الدور الأول:
-                                <ul>
-                                    <li>قسم الأنثروبولوجيا</li>
-                                    <li>قسم علم النفس</li>
-                                </ul>
-                            </li>
-                            <li>الدور الثاني:
-                                <ul>
-                                    <li>قسم مسرح</li>
-                                    <li>قسم اللغات شرقية</li>
-                                    <li>قسم اللغة العربية</li>
-                                </ul>
-                            </li>
-                            <li>الدور الثالث:
-                                <ul>
-                                    <li>مكتب العميد</li>
-                                    <li>مكتب الوكيل</li>
-                                    <li>مكاتب السكرتارية</li>
-                                </ul>
-                            </li>
-                            <li>الدور الرابع:
-                                <ul>
-                                    <li>قسم اللغة الإنجليزية</li>
-                                    <li>قسم اللغة الفرنسية</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="sub-section">
-                        <h3>المبنى القبلي</h3>
-                        <ul>
-                            <li>الدور الأول:
-                                <ul>
-                                    <li>قسم تاريخ</li>
-                                </ul>
-                            </li>
-                            <li>الدور الثاني:
-                                <ul>
-                                    <li>قسم جغرافيا</li>
-                                    <li>قسم جيوماتكس</li>
-                                </ul>
-                            </li>
-                            <li>الدور الثالث:
-                                <ul>
-                                    <li>قسم فلسفة</li>
-                                    <li>قاعة مسرح</li>
-                                </ul>
-                            </li>
-                            <li>الدور الرابع:
-                                <ul>
-                                    <li>قسم تاريخ</li>
-                                    <li>قسم اثار</li>
-                                    <li>قسم صوتيات</li>
-                                </ul>
-                            </li>
-                            <li>الدور الخامس:
-                                <ul>
-                                    <li>قسم اعلام</li>
-                                    <li>قسم اجتماع</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="sub-section">
-                        <h3>المبنى الأبيض</h3>
-                        <ul>
-                            <li>الدور الأول: قسم مكتبات</li>
-                            <li>الدور الثاني: الحسابات الخاصة</li>
-                            <li>الدور الثالث: البرامج الخاصة</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="sub-section">
-                        <h3>الساحة</h3>
-                        <ul>
-                            <li>قسم صيني</li>
-                            <li>قسم لغات شرقية</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Section 7 -->
-            <div class="info-section" id="section7">
-                <div class="section-header">
-                    <h2><i class="fas fa-user-tie" style="margin-left: 10px;"></i> ما يخص الخدمة العامة</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li>دي بتكون للبنات سنة بعد التخرج علشان تقدر تشتغل في أي حاجه حكومية أو أنها تسافر</li>
-                    </ul>
-                    
-                    <div class="sub-section">
-                        <h3>للتقديم في الخدمة العامة</h3>
-                        <ul>
-                            <li>صورتين من المؤهل (شهادة التخرج _ الافادة).</li>
-                            <li>٣ صور شخصية.</li>
-                            <li>صورتين بطاقة.</li>
-                            <li>التقديم من خلال اللينك ده (<a href="https://freshgraduate.moss.gov.eg/App_Pages/View/login.aspx" class="link-item">https://freshgraduate.moss.gov.eg</a>) وطباعة اخر ورقة ظاهرة صورتين.</li>
-                            <li>شراء فايلين من أي مكتبة</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="sub-section">
-                        <h3>موعد التقديم</h3>
-                        <ul>
-                            <li>التقديم بيكون في اخر كل شهر من ٢٥ ل ٢٩ التوجه للشئون التابعة للمنطقة السكنية الـ في البطاقة.</li>
-                            <li>لمعرفة الشئون التابعة لكل شخص بعد ما بيقدم في اللينك الـ فوق بتظهرله مكانها فين.</li>
-                            <li>بعد التوجه للشئون هناك بيدوهم أبليكشن بيسجلوا فيها بيناتهم كلها تاني والأماكن ال حابيين ينزلوا فيها.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Section 8 -->
-            <div class="info-section" id="section8">
-                <div class="section-header">
-                    <h2><i class="fas fa-sun" style="margin-left: 10px;"></i> الفرق بين السمر كورس والترم الصيفي</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <div class="sub-section">
-                        <h3>السمر كورس</h3>
-                        <ul>
-                            <li>بيكون لطلاب الفرقة الرابعة (اللائحة القديمة فقط) للطلاب المحملين بمادة أو مادتين، أكتر من كده بيكون باقي للإعادة.</li>
-                        </ul>
-                        
-                        <div class="sub-section">
-                            <h4>طب ده بتسجيل؟</h4>
-                            <ul>
-                                <li>لا، لان كل المواد اللي فيها رسوب لطلاب اللائحة القديمة بتتفتح وبينزل ليها جدول وغالبا بيكون شهر 9 الطالب بيروح في ميعاد المادة اللى هو راسب فيها.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="sub-section">
-                        <h3>الترم الصيفي</h3>
-                        <ul>
-                            <li>ده خاص بطلاب اللائحة الجديدة نظام الساعات المعتمدة فقط</li>
-                            <li>وبيكون ترم مكثف حد أدنى 2 ساعتين للتسجيل وحد أقصي 9 ساعات للتسجيل.</li>
-                            <li>الساعة فيه ب 150 ج.</li>
-                            <li>ويجوز للطلاب أنهم يحسنوا فيه مواد لحد تقدير C.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Section 9 -->
-            <div class="info-section" id="section9">
-                <div class="section-header">
-                    <h2><i class="fas fa-link" style="margin-left: 10px;"></i> روابط مهمة</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li><a href="https://www.facebook.com/MOHESREGYPT" class="link-item">صفحة وزارة التعليم العالي والبحث المصرية <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/AlexandriauniOfficial" class="link-item">الصفحة الرسمية لجامعة الإسكندرية <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/MAC.Alex.University" class="link-item">مركز القياس والتقويم جامعة الإسكندرية <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/LTU.FOA" class="link-item">وحدة اللغات والترجمة جامعة الإسكندرية <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/AlexUni.official" class="link-item">الصفحة الرسمية لاتحاد طلاب جامعة الإسكندرية <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/arts.alexu.edu.eg" class="link-item">الصفحة الرسمية لكلية الآداب <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/Alex.Arts.Student.Union" class="link-item">الصفحة الرسمية لاتحاد طلاب كلية الآداب <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/artsstudentaffairs" class="link-item">صفحة شؤون طلاب كلية الآداب <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/profile.php?id=61559121957642" class="link-item">صفحة رعاية الشباب <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/TahaHussein.Center2019" class="link-item">مركز طه حسين لخدمة الطلاب من ذوي الإعاقة جامعة الإسكندرية <i class="fas fa-external-link-alt"></i></a></li>
-                        <li><a href="https://www.facebook.com/profile.php?id=100064569766448" class="link-item">صفحة التربية العسكرية جامعة الإسكندرية <i class="fas fa-external-link-alt"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        </section>
     </main>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="credits">
-                    <div class="credit-card">
-                        <h3>المقرر</h3>
-                        <p>يوسف صبري</p>
-                    </div>
-                    
-                    <div class="credit-card">
-                        <h3>نائب المقرر</h3>
-                        <p>منار رضا</p>
-                    </div>
-                </div>
-                
-                <div class="copyright">
-                    جميع الحقوق محفوظة لأسرة Plato 2025
-                </div>
-            </div>
-        </div>
+
+    <footer class="bg-red-900 text-white text-center py-4">
+        <p>جميع الحقوق محفوظة لأسرة Plato 2025</p>
     </footer>
-    
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle sections
-            const sectionHeaders = document.querySelectorAll('.section-header');
-            
-            sectionHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const section = header.parentElement;
-                    const content = section.querySelector('.section-content');
-                    const icon = header.querySelector('.fa-chevron-down');
-                    
-                    content.classList.toggle('active');
-                    icon.classList.toggle('fa-chevron-up');
-                    icon.classList.toggle('fa-chevron-down');
-                });
-            });
-            
-            // Quick links navigation
-            const quickLinks = document.querySelectorAll('.quick-link');
-            
-            quickLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    const sectionId = link.getAttribute('data-section');
-                    const section = document.getElementById(sectionId);
-                    const content = section.querySelector('.section-content');
-                    const icon = section.querySelector('.fa-chevron-down');
-                    
-                    // Close all sections first
-                    document.querySelectorAll('.section-content').forEach(s => {
-                        s.classList.remove('active');
-                    });
-                    document.querySelectorAll('.fa-chevron-down').forEach(i => {
-                        i.classList.remove('fa-chevron-up');
-                        i.classList.add('fa-chevron-down');
-                    });
-                    
-                    // Open the selected section
-                    content.classList.add('active');
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                    
-                    // Scroll to the section
-                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            });
-            
-            // Search functionality
-            const searchInput = document.querySelector('.search-box input');
-            
-            searchInput.addEventListener('keyup', function(e) {
-                if (e.key === 'Enter') {
-                    const searchTerm = this.value.toLowerCase();
-                    
-                    if (searchTerm.trim() === '') return;
-                    
-                    // Close all sections first
-                    document.querySelectorAll('.section-content').forEach(s => {
-                        s.classList.remove('active');
-                    });
-                    document.querySelectorAll('.fa-chevron-down').forEach(i => {
-                        i.classList.remove('fa-chevron-up');
-                        i.classList.add('fa-chevron-down');
-                    });
-                    
-                    // Search in all sections
-                    let found = false;
-                    document.querySelectorAll('.section-content').forEach(content => {
-                        const text = content.textContent.toLowerCase();
-                        if (text.includes(searchTerm)) {
-                            content.classList.add('active');
-                            content.parentElement.querySelector('.fa-chevron-down').classList.remove('fa-chevron-down');
-                            content.parentElement.querySelector('.fa-chevron-down').classList.add('fa-chevron-up');
-                            
-                            if (!found) {
-                                content.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                found = true;
-                            }
-                            
-                            // Highlight matching text
-                            const regex = new RegExp(searchTerm, 'gi');
-                            const html = content.innerHTML.replace(regex, match => `<span class="highlight">${match}</span>`);
-                            content.innerHTML = html;
-                        }
-                    });
-                    
-                    if (!found) {
-                        alert('لم يتم العثور على نتائج تطابق بحثك');
-                    }
-                }
+        // Toggle section content
+        document.querySelectorAll('.section-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                content.classList.toggle('active');
             });
         });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const sections = document.querySelectorAll('section');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            searchResults.innerHTML = '';
+            searchResults.classList.remove('active');
+
+            if (query.length > 2) {
+                sections.forEach(section => {
+                    const text = section.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        const title = section.querySelector('h2').textContent;
+                        const result = document.createElement('div');
+                        result.textContent = title;
+                        result.addEventListener('click', () => {
+                            section.scrollIntoView({ behavior: 'smooth' });
+                            searchResults.classList.remove('active');
+                            searchInput.value = '';
+                        });
+                        searchResults.appendChild(result);
+                    }
+                });
+                if (searchResults.children.length > 0) {
+                    searchResults.classList.add('active');
+                }
+            }
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.remove('active');
+            }
+        });
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </body>
 </html>
